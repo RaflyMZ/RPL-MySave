@@ -16,11 +16,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        // Ambil ID profil dari session
-        $id_profil = Session::get('id_profil');
+        // Ambil profile pertama dari database
+        $profil = Profil::all()->first();
 
-        // Jika tidak ada ID profil di session, buat profil baru dengan nilai default
-        if (!$id_profil) {
+        // Jika tidak ada profil, buat profil baru dengan nilai default
+        if (!$profil) {
             $profil = Profil::create([
                 'first_name' => '',
                 'last_name' => '',
@@ -31,11 +31,6 @@ class ProfileController extends Controller
                 'kota' => '',
                 'profilpic' => null,
             ]);
-            Session::put('id_profil', $profil->id_profil);
-            $id_profil = $profil->id_profil;
-        } else {
-            // Cari profil berdasarkan ID dari session
-            $profil = Profil::findOrFail($id_profil);
         }
 
         return view('profile', compact('profil'));
@@ -48,12 +43,7 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        // Ambil ID profil dari session
-        $id_profil = Session::get('id_profil');
-
-        // Cari profil berdasarkan ID dari session
-        $profil = Profil::findOrFail($id_profil);
-
+        $profil = Profil::all()->first();
         return view('editProfile', compact('profil'));
     }
 
@@ -65,14 +55,13 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        // Ambil ID profil dari session
-        $id_profil = Session::get('id_profil');
+        $old_profil = Profil::all()->first();
 
         // Validasi input
         $request->validate([
             'first_name' => 'nullable|string|max:50',
             'last_name' => 'nullable|string|max:50',
-            'email' => 'nullable|email|max:100|unique:profil,email,' . $id_profil . ',id_profil',
+            'email' => 'nullable|email|max:100|unique:profil,email,' . $old_profil->id_profil . ',id_profil',
             'alamat' => 'nullable|string',
             'phoneNumber' => 'nullable|string|max:20',
             'jobStatus' => 'nullable|string|max:50',
@@ -80,8 +69,8 @@ class ProfileController extends Controller
         ]);
 
         // Gunakan updateOrCreate untuk menangani kedua kasus (edit/input)
-        $profil = Profil::updateOrCreate(
-            ['id_profil' => $id_profil], 
+        Profil::updateOrCreate(
+            ['id_profil' => $old_profil->id_profil], 
             $request->only(['first_name', 'last_name', 'email', 'alamat', 'phoneNumber', 'jobStatus', 'kota'])
         );
 
@@ -97,15 +86,12 @@ class ProfileController extends Controller
      */
     public function uploadPhoto(Request $request)
     {
-        // Ambil ID profil dari session
-        $id_profil = Session::get('id_profil');
-
         // Validasi input
         $request->validate([
             'profilpic' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $profil = Profil::findOrFail($id_profil);
+        $profil = Profil::all()->first();
 
         // Hapus foto lama jika ada
         if ($profil->profilpic) {
