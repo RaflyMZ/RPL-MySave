@@ -6,8 +6,7 @@
             <li><a href="{{ route('home') }}" class="block py-2 px-4 rounded hover:bg-gray-700">Dashboard</a></li>
             <li><a href="{{ route('profile') }}" class="block py-2 px-4 rounded hover:bg-gray-700">Profile</a></li>
             <li><a href="{{ route('finansial') }}" class="block py-2 px-4 rounded hover:bg-gray-700">Finansial Saya</a></li>
-            <li><a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Settings</a></li>
-            <li><a href="#" class="block py-2 px-4 rounded hover:bg-red-600">Logout</a></li>
+            <li><a href="{{ route('guide')}}" class="block py-2 px-4 rounded hover:bg-gray-700">Guide</a></li>
         </ul>
     </div>
 </aside>
