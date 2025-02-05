@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FinansialController;
 use App\Http\Controllers\GuideController;
@@ -10,8 +9,15 @@ use App\Http\Controllers\HomeController;
 // Route untuk halaman Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+// Route untuk Profil
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/editProfile', [ProfileController::class, 'edit'])->name('editProfile');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/upload', [ProfileController::class, 'uploadPhoto'])->name('profile.upload');
+Route::delete('/profile/delete-photo', [ProfileController::class, 'deletePhoto'])->name('profile.deletePhoto');
 
+// Route untuk Finansial
 Route::get('/finansial', [FinansialController::class, 'index'])->name('finansial');
+
+// Route untuk Panduan (Guide)
 Route::get('/guide', [GuideController::class, 'index'])->name('guide');

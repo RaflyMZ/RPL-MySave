@@ -30,7 +30,7 @@
                     <li>
                         <a href="#"
                            class="flex items-center py-2 px-4 hover:bg-gray-700 rounded {{ request()->is('payment*') ? 'bg-gray-700' : '' }}">
-                            <i class="fas fa-credit-card mr-3"></i> Payment
+                            <i class="fas fa-credit-card mr-3"></i> Pengeluaran
                         </a>
                     </li>
                     <li>
