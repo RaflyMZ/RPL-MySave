@@ -34,6 +34,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('wishlist') }}"
+                           class="flex items-center py-2 px-4 hover:bg-gray-700 rounded {{ request()->is('wishlist*') ? 'bg-gray-700' : '' }}">
+                            <i class="fas fa-euro-sign mr-3"></i> Wishlist
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('guide') }}"
                            class="flex items-center py-2 px-4 hover:bg-gray-700 rounded {{ request()->is('guide*') ? 'bg-gray-700' : '' }}">
                             <i class="fas fa-book mr-3"></i> Guide
