@@ -48,7 +48,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ftp.mrhrtz.my.id
-          username: mysave@mrhrtz.my.id
+          username: mysave@mysave.mrhrtz.my.id
           password: MySave@123
           protocol: ftp
           port: 21
