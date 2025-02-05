@@ -33,10 +33,10 @@ class ProfileController extends Controller
             ]);
             Session::put('id_profil', $profil->id_profil);
             $id_profil = $profil->id_profil;
+        } else {
+            // Cari profil berdasarkan ID dari session
+            $profil = Profil::findOrFail($id_profil);
         }
-
-        // Cari profil berdasarkan ID dari session
-        $profil = Profil::findOrFail($id_profil);
 
         return view('profile', compact('profil'));
     }

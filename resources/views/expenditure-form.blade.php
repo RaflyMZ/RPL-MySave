@@ -3,9 +3,8 @@
 
 @section('content')
     <section class="p-6">
-        <div class="container mx-auto max-w-4xl bg-white rounded-lg shadow-md p-6">
-            <!-- Data Finansial -->
-            <div class="mb-8">
+        <div class="flex items-center justify-center min-h-screen bg-white-400">
+            <div class="bg-gray-100 p-8 rounded-2xl shadow-md w-96">
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         @if (request()->get('page') == 'edit')
@@ -37,18 +36,18 @@
                             <label for="date" class="block text-sm font-medium text-gray-700">Tanggal</label>
                             <input type="date" name="date" id="date"
                                 value="{{ $expenditure->tenggat_pengeluaran }}"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400">
                         </div>
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Nama Pengeluaran</label>
                             <input type="text" name="name" id="name"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
                                 value="{{ $expenditure->nama_pengeluaran }}">
                         </div>
                         <div>
                             <label for="amount" class="block text-sm font-medium text-gray-700">Nominal</label>
                             <input type="number" name="amount" id="amount"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
                                 value="{{ $expenditure->nominal }}">
                         </div>
                         <div class="flex justify-end space-x-4">
@@ -63,18 +62,18 @@
                             <label for="date" class="block text-sm font-medium text-gray-700">Tanggal</label>
                             <input type="date" name="date" id="date"
                                 value="{{ $expenditure->tenggat_pengeluaran }}"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" readonly>
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400" readonly>
                         </div>
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Nama Pengeluaran</label>
                             <input type="text" name="name" id="name"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
                                 value="{{ $expenditure->nama_pengeluaran }}" readonly>
                         </div>
                         <div>
                             <label for="amount" class="block text-sm font-medium text-gray-700">Nominal</label>
                             <input type="number" name="amount" id="amount"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400"
                                 value="{{ $expenditure->nominal }}" readonly>
                         </div>
                         <div class="flex justify-end space-x-4">
@@ -99,17 +98,17 @@
                         <div>
                             <label for="date" class="block text-sm font-medium text-gray-700">Tanggal</label>
                             <input type="date" name="date" id="date" value="{{ old('date', date('Y-m-d')) }}"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400">
                         </div>
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Nama Pengeluaran</label>
                             <input type="text" name="name" id="name"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400">
                         </div>
                         <div>
                             <label for="amount" class="block text-sm font-medium text-gray-700">Nominal</label>
                             <input type="number" name="amount" id="amount"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400">
                         </div>
                         <div class="flex justify-end space-x-4">
                             <a href="{{ route('expenditure') }}"
