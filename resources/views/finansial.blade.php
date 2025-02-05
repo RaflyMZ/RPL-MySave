@@ -1,4 +1,3 @@
-<!-- resources/views/finansial.blade.php -->
 @extends('layout.homelayout')
 
 @section('content')
@@ -9,33 +8,55 @@
             <h2 class="text-xl font-bold mb-4">Data Finansial</h2>
             <div class="flex justify-between items-center mb-4">
                 <button class="bg-green-500 text-white px-4 py-2 rounded">Wishlist</button>
-                <button class="bg-indigo-500 text-white px-4 py-2 rounded">Tambah Finansial</button>
+                <a href="{{ route('finansial.tambah') }}" class="bg-indigo-500 text-white px-4 py-2 rounded">Tambah Finansial</a>
             </div>
-            <table class="w-full border-collapse">
+            <table class="w-full border-collapse" id="finansialTable">
                 <thead>
                     <tr>
-                        <th class="border p-3">ID Finansial</th>
+                        <th class="border p-3">ID</th>
                         <th class="border p-3">Tanggal</th>
                         <th class="border p-3">Jumlah</th>
                         <th class="border p-3">Sumber</th>
                         <th class="border p-3">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="border p-3"></td>
-                        <td class="border p-3"></td>
-                        <td class="border p-3"></td>
-                        <td class="border p-3"></td>
-                        <td class="border p-3 flex space-x-2 justify-between">
-                            <button class="bg-blue-500 text-white px-3 py-1 rounded">Detail</button>
-                            <button class="bg-orange-500 text-white px-3 py-1 rounded">Edit</button>
-                            <button class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- Tambahkan baris tabel lainnya sesuai kebutuhan -->
+                <tbody id="finansialTableBody">
+                    @foreach ($finansials->take(5) as $finansial)
+                        <tr>
+                            <td class="border p-3">{{ $finansial->id_finansial }}</td>
+                            <td class="border p-3">{{ $finansial->tanggal_pemasukan }}</td>
+                            <td class="border p-3">{{ number_format($finansial->penghasilan, 0, ',', '.') }}</td>
+                            <td class="border p-3">{{ $finansial->sumber }}</td>
+                            <td class="border p-3 flex space-x-2 justify-between">
+                                <!-- Hidden element to store JSON data -->
+                                <div id="finansial-data-{{ $finansial->id_finansial }}" class="hidden">
+                                    {!! htmlspecialchars(json_encode($finansial), ENT_QUOTES, 'UTF-8') !!}
+                                </div>
+
+                                <!-- Button to open modal -->
+                                <button 
+                                    class="bg-blue-500 text-white px-3 py-1 rounded detailButton" 
+                                    data-id="{{ $finansial->id_finansial }}">
+                                    Detail
+                                </button>
+                                <a href="{{ route('finansial.edit', $finansial->id_finansial) }}" class="bg-orange-500 text-white px-3 py-1 rounded">Edit</a>
+                                <form action="{{ route('finansial.destroy', $finansial->id_finansial) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
+
+            <!-- Load More Button -->
+            @if ($finansials->count() > 5)
+                <div class="mt-4 text-center">
+                    <button id="loadMoreButton" class="bg-indigo-500 text-white px-4 py-2 rounded">Load More</button>
+                </div>
+            @endif
         </div>
 
         <!-- Target Bulanan -->
@@ -84,5 +105,102 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div id="detailModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="fixed inset-0 bg-black opacity-50"></div>
+            <div class="relative bg-white w-11/12 md:w-1/2 rounded-lg shadow-lg p-6 z-10">
+                <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <h2 class="text-xl font-bold mb-4">Detail Finansial</h2>
+                <div>
+                    <p><strong>ID Finansial:</strong> <span id="modalIdFinansial"></span></p>
+                    <p><strong>Tanggal Pemasukan:</strong> <span id="modalTanggalPemasukan"></span></p>
+                    <p><strong>Jumlah:</strong> Rp. <span id="modalPenghasilan"></span></p>
+                    <p><strong>Sumber:</strong> <span id="modalSumber"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script>
+    // Function to attach event listeners to detail buttons
+    function attachDetailButtonListeners() {
+        document.querySelectorAll('.detailButton').forEach(button => {
+            button.addEventListener('click', function () {
+                const idFinansial = this.getAttribute('data-id');
+                const finansialDataElement = document.getElementById(`finansial-data-${idFinansial}`);
+                const finansialData = JSON.parse(finansialDataElement.textContent);
+
+                document.getElementById('modalIdFinansial').textContent = finansialData.id_finansial;
+                document.getElementById('modalTanggalPemasukan').textContent = finansialData.tanggal_pemasukan;
+                document.getElementById('modalPenghasilan').textContent = new Intl.NumberFormat('id-ID').format(finansialData.penghasilan);
+                document.getElementById('modalSumber').textContent = finansialData.sumber;
+
+                document.getElementById('detailModal').classList.remove('hidden');
+            });
+        });
+    }
+
+    // Attach initial event listeners
+    attachDetailButtonListeners();
+
+    // Function to close modal
+    function closeModal() {
+        document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    // Pagination logic
+    let currentPage = 1;
+    const allFinansials = {!! json_encode($finansials) !!};
+    const pageSize = 5;
+
+    document.getElementById('loadMoreButton')?.addEventListener('click', function () {
+        const tableBody = document.getElementById('finansialTableBody');
+        const start = currentPage * pageSize;
+        const end = start + pageSize;
+
+        for (let i = start; i < Math.min(end, allFinansials.length); i++) {
+            const finansial = allFinansials[i];
+            const row = `
+                <tr>
+                    <td class="border p-3">${finansial.id_finansial}</td>
+                    <td class="border p-3">${finansial.tanggal_pemasukan}</td>
+                    <td class="border p-3">${new Intl.NumberFormat('id-ID').format(finansial.penghasilan)}</td>
+                    <td class="border p-3">${finansial.sumber}</td>
+                    <td class="border p-3 flex space-x-2 justify-between">
+                        <div id="finansial-data-${finansial.id_finansial}" class="hidden">
+                            ${JSON.stringify(finansial)}
+                        </div>
+                        <button 
+                            class="bg-blue-500 text-white px-3 py-1 rounded detailButton" 
+                            data-id="${finansial.id_finansial}">
+                            Detail
+                        </button>
+                        <a href="/finansial/edit/${finansial.id_finansial}" class="bg-orange-500 text-white px-3 py-1 rounded">Edit</a>
+                        <form action="/finansial/${finansial.id_finansial}" method="POST" style="display:inline;">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        }
+
+        // Reattach event listeners for new buttons
+        attachDetailButtonListeners();
+
+        currentPage++;
+        if (end >= allFinansials.length) {
+            this.style.display = 'none';
+        }
+    });
+</script>
 @endsection

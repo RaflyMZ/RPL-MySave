@@ -10,7 +10,7 @@ use App\Models\Profil;
 class ProfileController extends Controller
 {
     /**
-     * Display the profile page.
+     * Display the profile page (read-only).
      *
      * @return \Illuminate\View\View
      */
@@ -42,7 +42,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for editing or creating the profile.
+     * Show the form for editing the profile.
      *
      * @return \Illuminate\View\View
      */
@@ -85,6 +85,7 @@ class ProfileController extends Controller
             $request->only(['first_name', 'last_name', 'email', 'alamat', 'phoneNumber', 'jobStatus', 'kota'])
         );
 
+        // Redirect kembali ke halaman profil dengan pesan sukses
         return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
     }
 
@@ -116,7 +117,8 @@ class ProfileController extends Controller
         $profil->profilpic = $path;
         $profil->save();
 
-        return redirect()->back()->with('success', 'Foto profil berhasil diperbarui.');
+        // Redirect kembali ke halaman edit profil dengan pesan sukses
+        return redirect()->route('editProfile')->with('success', 'Foto profil berhasil diperbarui.');
     }
 
     /**
@@ -136,6 +138,7 @@ class ProfileController extends Controller
             $profil->update(['profilpic' => null]);
         }
 
-        return redirect()->back()->with('success', 'Foto profil berhasil dihapus.');
+        // Redirect kembali ke halaman edit profil dengan pesan sukses
+        return redirect()->route('editProfile')->with('success', 'Foto profil berhasil dihapus.');
     }
 }

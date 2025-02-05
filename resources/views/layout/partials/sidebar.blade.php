@@ -24,7 +24,7 @@
                     <li>
                         <a href="{{ route('finansial') }}"
                            class="flex items-center py-2 px-4 hover:bg-gray-700 rounded {{ request()->routeIs('finansial') ? 'bg-gray-700' : '' }}">
-                            <i class="fas fa-money-bill-wave mr-3"></i> Finanance
+                            <i class="fas fa-money-bill-wave mr-3"></i> Finance
                         </a>
                     </li>
                     <li>

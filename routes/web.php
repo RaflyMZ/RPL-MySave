@@ -18,6 +18,11 @@ Route::delete('/profile/delete-photo', [ProfileController::class, 'deletePhoto']
 
 // Route untuk Finansial
 Route::get('/finansial', [FinansialController::class, 'index'])->name('finansial');
+Route::get('/finansial/tambah', [FinansialController::class, 'tambah'])->name('finansial.tambah');
+Route::post('/finansial', [FinansialController::class, 'store'])->name('finansial.store');
+Route::get('/finansial/edit/{id}', [FinansialController::class, 'edit'])->name('finansial.edit');
+Route::put('/finansial/{id}', [FinansialController::class, 'update'])->name('finansial.update');
+Route::delete('/finansial/{id}', [FinansialController::class, 'destroy'])->name('finansial.destroy');
 
 // Route untuk Panduan (Guide)
 Route::get('/guide', [GuideController::class, 'index'])->name('guide');

@@ -10,6 +10,23 @@
                     alt="Profile Picture" class="w-32 h-32 rounded-full object-cover">
             </div>
         </div>
+        <!-- Upload & Delete Buttons -->
+        <div class="flex justify-center mb-4">
+            <form action="{{ route('profile.upload') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="profilpic" id="profilpic" class="hidden" onchange="this.form.submit()">
+                <label for="profilpic" class="bg-blue-500 text-white px-5 py-1 rounded cursor-pointer">
+                    {{ $profil->profilpic ? 'Ganti Foto' : 'Upload Foto' }}
+                </label>
+            </form>
+            @if($profil->profilpic)
+                <form action="{{ route('profile.deletePhoto') }}" method="POST" class="ml-2">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 text-white px-5 py-1 rounded">Hapus Foto</button>
+                </form>
+            @endif
+        </div>
         <!-- Form -->
         <form action="{{ route('profile.update') }}" method="POST">
             @csrf
