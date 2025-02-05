@@ -38,7 +38,7 @@ jobs:
 
       - name: 🔌 Prepare Files for Public
         run: |
-          cp -rf public/* public/.* .
+          cp -rf public/* .
           mv public.php index.php
 
       - name: 💾 Give Directory Permissions
