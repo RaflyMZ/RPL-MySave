@@ -37,7 +37,7 @@ Route::delete('/finansial/{id}', [FinansialController::class, 'destroy'])->name(
 //  Route untuk Wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
 Route::get('/wishlist/create', [WishlistController::class, 'create'])->name('wishlist.create');
-Route::post('/wishlist/store', [WishlistController::class, 'store'])->name('wishlist.store')
+Route::post('/wishlist/store', [WishlistController::class, 'store'])->name('wishlist.store');
 Route::get('/wishlist/{id}/edit', [WishlistController::class, 'edit'])->name('wishlist.edit');
 Route::put('/wishlist/{id}', [WishlistController::class, 'update'])->name('wishlist.update');
 Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
