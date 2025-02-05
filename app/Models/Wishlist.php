@@ -9,11 +9,20 @@ class Wishlist extends Model
 {
     use HasFactory;
 
-    // Tambahkan atribut yang bisa diisi secara massal
+    protected $table = 'wishlist'; // Nama tabel
+    protected $primaryKey = 'id_wishlist'; // Primary key
+
     protected $fillable = [
-        'jumlah',
-        'tanggal',
-        'nama',
+        'id_finansial',
+        'nama_wishlist',
+        'nominal_wishlist',
+        'tanggal_wishlist',
         'alasan',
     ];
+
+    // Relasi ke tabel finansial
+    public function finansial()
+    {
+        return $this->belongsTo(Finansial::class, 'id_finansial');
+    }
 }

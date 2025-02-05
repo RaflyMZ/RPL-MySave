@@ -24,13 +24,13 @@
                     <li>
                         <a href="{{ route('finansial') }}"
                            class="flex items-center py-2 px-4 hover:bg-gray-700 rounded {{ request()->routeIs('finansial') ? 'bg-gray-700' : '' }}">
-                            <i class="fas fa-money-bill-wave mr-3"></i> Finanance
+                            <i class="fas fa-money-bill-wave mr-3"></i> Finance
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                           class="flex items-center py-2 px-4 hover:bg-gray-700 rounded {{ request()->is('payment*') ? 'bg-gray-700' : '' }}">
-                            <i class="fas fa-credit-card mr-3"></i> Payment
+                        <a href="{{ route('expenditure') }}"
+                           class="flex items-center py-2 px-4 hover:bg-gray-700 rounded {{ request()->is('expenditure*') ? 'bg-gray-700' : '' }}">
+                            <i class="fas fa-credit-card mr-3"></i> Expenditure
                         </a>
                     </li>
                     <li>
