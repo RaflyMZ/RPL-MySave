@@ -54,7 +54,7 @@ class WishlistController extends Controller
             return redirect()->route('wishlist')->with('success', 'Wishlist berhasil diperbarui.');
         }
 
-        public function destroy(Wishlist $wishlist)
+        public function destroy(Wishlist $wishlist, $id)
         {
             $wishlist = Wishlist::findOrFail($id); // Cari wishlist berdasarkan ID
             $wishlist->delete();
