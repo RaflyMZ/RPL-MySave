@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('wishlists', function (Blueprint $table) {
+    Schema::create('wishlist', function (Blueprint $table) {
         $table->id();
         $table->integer('jumlah');
         $table->date('tanggal');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('wishlist');
     }
 };

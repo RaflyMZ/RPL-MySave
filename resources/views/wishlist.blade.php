@@ -24,7 +24,7 @@
                         @foreach ($wishlists as $index => $wishlist)
                             <tr>
                                 <td class="border p-3">{{ $index + 1 }}</td>
-                                <td class="border p-3">{{ $wishlist->jumlah }}</td>
+                                <td class="border p-3 rp">{{ $wishlist->jumlah }}</td>
                                 <td class="border p-3">{{ $wishlist->tanggal }}</td>
                                 <td class="border p-3">{{ $wishlist->nama }}</td>
                                 <td class="border p-3">{{ $wishlist->alasan }}</td>

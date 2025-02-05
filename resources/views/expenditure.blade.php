@@ -60,16 +60,4 @@
             </div>
         </div>
     </section>
-    <script>
-        // javascript untuk convert semua class ".rp" menjadi format rupiah
-        const formatter = new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 2
-        });
-
-        document.querySelectorAll('.rp').forEach(element => {
-            element.textContent = formatter.format(element.textContent);
-        });
-    </script>
 @endsection

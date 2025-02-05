@@ -9,14 +9,12 @@ class Wishlist extends Model
 {
     use HasFactory;
 
-    protected $table = 'wishlist'; // Nama tabel
-    protected $primaryKey = 'id_wishlist'; // Primary key
+    protected $table = 'wishlist'; 
 
     protected $fillable = [
-        'id_finansial',
-        'nama_wishlist',
-        'nominal_wishlist',
-        'tanggal_wishlist',
+        'jumlah',
+        'tanggal',
+        'nama',
         'alasan',
     ];
 
