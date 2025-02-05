@@ -33,6 +33,8 @@ Route::post('/finansial', [FinansialController::class, 'store'])->name('finansia
 Route::get('/finansial/edit/{id}', [FinansialController::class, 'edit'])->name('finansial.edit');
 Route::put('/finansial/{id}', [FinansialController::class, 'update'])->name('finansial.update');
 Route::delete('/finansial/{id}', [FinansialController::class, 'destroy'])->name('finansial.destroy');
+Route::post('/finansial/target/save', [FinansialController::class, 'setTarget'])->name('finansial.target.save');
+Route::get('/finansial/target/reset', [FinansialController::class, 'resetTarget'])->name('finansial.target.reset');
 
 //  Route untuk Wishlist
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');

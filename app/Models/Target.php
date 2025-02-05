@@ -12,8 +12,5 @@ class Target extends Model
     protected $table = 'target'; // Nama tabel
     protected $primaryKey = 'id_target'; // Primary key
 
-    protected $fillable = [
-        'total_finansial',
-        'total_pengeluaran',
-    ];
+    protected $guarded = [];
 }
